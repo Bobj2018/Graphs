@@ -13,33 +13,68 @@ class Graph:
         """
         Add a vertex to the graph.
         """
-        pass  # TODO
+        self.vertices[vertex_id] = set()
 
     def add_edge(self, v1, v2):
         """
         Add a directed edge to the graph.
         """
-        pass  # TODO
+        self.vertices[v1].add(v2)
 
     def get_neighbors(self, vertex_id):
         """
         Get all neighbors (edges) of a vertex.
         """
-        pass  # TODO
+        return self.vertices[vertex_id]
 
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+
+        # Initialize a queue
+        q = Queue()
+        # Make a set to track visted nodes
+        visted = set()
+        # enqueue the starting node
+
+        q.enqueue(starting_vertex)
+
+        while q.size() > 0:
+            current_node = q.dequeue()
+
+            if current_node not in visted:
+                print(current_node)
+                visted.add(current_node)
+                neigbors = self.get_neighbors(current_node)
+
+                for neigbor in neigbors:
+                    q.enqueue(neigbor)
 
     def dft(self, starting_vertex):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # Initialize a stack
+        q = Stack()
+        # Make a set to track visted nodes
+        visted = set()
+        # push the starting node
+
+        q.push(starting_vertex)
+
+        while q.size() > 0:
+            current_node = q.pop()
+
+            if current_node not in visted:
+                print(current_node)
+                visted.add(current_node)
+                neigbors = self.get_neighbors(current_node)
+
+                for neigbor in neigbors:
+                    q.push(neigbor)
 
     def dft_recursive(self, starting_vertex):
         """
