@@ -60,15 +60,15 @@ class Graph:
         beginning from starting_vertex.
         """
         # Initialize a stack
-        q = Stack()
+        s = Stack()
         # Make a set to track visted nodes
         visted = set()
         # push the starting node
 
-        q.push(starting_vertex)
+        s.push(starting_vertex)
 
-        while q.size() > 0:
-            current_node = q.pop()
+        while s.size() > 0:
+            current_node = s.pop()
 
             if current_node not in visted:
                 print(current_node)
@@ -76,7 +76,7 @@ class Graph:
                 neigbors = self.get_neighbors(current_node)
 
                 for neigbor in neigbors:
-                    q.push(neigbor)
+                    s.push(neigbor)
 
     def dft_recursive(self, starting_vertex):
         """
@@ -93,7 +93,33 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+    # Initialize a queue
+        q = Queue()
+        q.enqueue([starting_vertex])
+        # Make a set to track visted nodes
+        visted = set()
+        # enqueue the starting node
+
+        
+
+        while q.size() > 0:
+            current_path = q.dequeue()
+            current_node = current_path[len(current_path) - 1]
+
+            if current_node not in visted:
+                # CHECK IF NODE IS DESITINATION
+                # IF IT IS, RETURN
+                if current_node == destination_vertex:
+                    return current_path
+                visted.add(current_node)
+                neigbors = self.get_neighbors(current_node)
+
+                for neigbor in neigbors:
+                    path = current_path.copy()
+                    path.append(neigbor)
+                    q.enqueue(path)
+        pass
+
 
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -101,6 +127,8 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
+        s = Stack()
+        visited = {}
         pass  # TODO
 
     def dfs_recursive(self, starting_vertex, destination_vertex):
