@@ -100,8 +100,6 @@ class Graph:
         visted = set()
         # enqueue the starting node
 
-        
-
         while q.size() > 0:
             current_path = q.dequeue()
             current_node = current_path[len(current_path) - 1]
@@ -118,7 +116,6 @@ class Graph:
                     path = current_path.copy()
                     path.append(neigbor)
                     q.enqueue(path)
-        pass
 
 
     def dfs(self, starting_vertex, destination_vertex):
@@ -128,8 +125,27 @@ class Graph:
         depth-first order.
         """
         s = Stack()
-        visited = {}
-        pass  # TODO
+        s.push([starting_vertex])
+        # Make a set to track visted nodes
+        visted = set()
+        # enqueue the starting node
+
+        while s.size() > 0:
+            current_path = s.pop()
+            current_node = current_path[len(current_path) - 1]
+
+            if current_node not in visted:
+                # CHECK IF NODE IS DESITINATION
+                # IF IT IS, RETURN
+                if current_node == destination_vertex:
+                    return current_path
+                visted.add(current_node)
+                neigbors = self.get_neighbors(current_node)
+
+                for neigbor in neigbors:
+                    path = current_path.copy()
+                    path.append(neigbor)
+                    s.push(path)
 
     def dfs_recursive(self, starting_vertex, destination_vertex):
         """
