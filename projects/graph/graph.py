@@ -13,33 +13,70 @@ class Graph:
         """
         Add a vertex to the graph.
         """
-        pass  # TODO
+        if vertex_id not in self.vertices:
+            self.vertices[vertex_id] = set()
 
     def add_edge(self, v1, v2):
         """
         Add a directed edge to the graph.
         """
-        pass  # TODO
+        if v1 in self.vertices and v2 in self.vertices:
+            self.vertices[v1].add(v2)
 
     def get_neighbors(self, vertex_id):
         """
         Get all neighbors (edges) of a vertex.
         """
-        pass  # TODO
+        return self.vertices[vertex_id]
 
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+
+        # Initialize a queue
+        q = Queue()
+        # Make a set to track visted nodes
+        visted = set()
+        # enqueue the starting node
+
+        q.enqueue(starting_vertex)
+
+        while q.size() > 0:
+            current_node = q.dequeue()
+
+            if current_node not in visted:
+                print(current_node)
+                visted.add(current_node)
+                neigbors = self.get_neighbors(current_node)
+
+                for neigbor in neigbors:
+                    q.enqueue(neigbor)
 
     def dft(self, starting_vertex):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # Initialize a stack
+        s = Stack()
+        # Make a set to track visted nodes
+        visted = set()
+        # push the starting node
+
+        s.push(starting_vertex)
+
+        while s.size() > 0:
+            current_node = s.pop()
+
+            if current_node not in visted:
+                print(current_node)
+                visted.add(current_node)
+                neigbors = self.get_neighbors(current_node)
+
+                for neigbor in neigbors:
+                    s.push(neigbor)
 
     def dft_recursive(self, starting_vertex):
         """
@@ -56,7 +93,30 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+    # Initialize a queue
+        q = Queue()
+        q.enqueue([starting_vertex])
+        # Make a set to track visted nodes
+        visted = set()
+        # enqueue the starting node
+
+        while q.size() > 0:
+            current_path = q.dequeue()
+            current_node = current_path[len(current_path) - 1]
+
+            if current_node not in visted:
+                # CHECK IF NODE IS DESITINATION
+                # IF IT IS, RETURN
+                if current_node == destination_vertex:
+                    return current_path
+                visted.add(current_node)
+                neigbors = self.get_neighbors(current_node)
+
+                for neigbor in neigbors:
+                    path = current_path.copy()
+                    path.append(neigbor)
+                    q.enqueue(path)
+
 
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -64,7 +124,28 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass  # TODO
+        s = Stack()
+        s.push([starting_vertex])
+        # Make a set to track visted nodes
+        visted = set()
+        # enqueue the starting node
+
+        while s.size() > 0:
+            current_path = s.pop()
+            current_node = current_path[len(current_path) - 1]
+
+            if current_node not in visted:
+                # CHECK IF NODE IS DESITINATION
+                # IF IT IS, RETURN
+                if current_node == destination_vertex:
+                    return current_path
+                visted.add(current_node)
+                neigbors = self.get_neighbors(current_node)
+
+                for neigbor in neigbors:
+                    path = current_path.copy()
+                    path.append(neigbor)
+                    s.push(path)
 
     def dfs_recursive(self, starting_vertex, destination_vertex):
         """
